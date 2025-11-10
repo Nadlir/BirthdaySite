@@ -1,51 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react'; // Removed 'useRef'
 import ReactAudioPlayer from 'react-audio-player';
 import './App.css'; 
 
-function App() {
-  // ⚠️ ודא ששם הקובץ תואם לקובץ בתיקיית public
-  const songFileName = 'FloresAmarillas.mp3'; 
+// Example images - REPLACE THESE WITH YOUR ACTUAL CLOUDINARY URLS!
+const IMAGE_LIST = [
+  { src: '/images/image1.jpg', alt: 'Birthday 2024 in Paris' },
+  { src: '/images/image2.jpg', alt: 'Our First Weekend Getaway' },
+  { src: '/images/image3.jpg', alt: 'A Million Dollar Smile!' },
+  { src: '/images/image4.jpg', alt: 'Our Sunset View' },
+];
 
-  // ⚠️ עדכן את נתיבי התמונות שלך (מתוך public או Cloudinary)
-  const images = [
-    { src: '/image1.jpg', alt: 'יום הולדת 2024 בפריז' },
-    { src: '/image2.jpg', alt: 'הסופ"ש הראשון שלנו יחד' },
-    { src: '/image3.jpg', alt: 'חיוך של מיליון דולר!' },
-    // הוסף תמונות נוספות כאן
-  ];
+// Icon Paths (Assuming they are in public/icons folder)
+const LEFT_ICON = '/icons/lefticon.png';
+const RIGHT_ICON = '/icons/righticon.png';
+const SONG_FILENAME = 'FloresAmarillas.mp3';
+
+function App() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const currentImage = IMAGE_LIST[currentImageIndex];
+  
+  // Logic to navigate left (Previous)
+  const goToPrevious = () => {
+    const newIndex = currentImageIndex === 0 
+      ? IMAGE_LIST.length - 1 
+      : currentImageIndex - 1;
+    setCurrentImageIndex(newIndex);
+  };
+
+  // Logic to navigate right (Next)
+  const goToNext = () => {
+    const newIndex = currentImageIndex === IMAGE_LIST.length - 1 
+      ? 0 
+      : currentImageIndex + 1;
+    setCurrentImageIndex(newIndex);
+  };
 
   return (
     <div className='surprise-page'>
-
-      {/* כותרת ומסר אישי */}
+      
       <header className="page-header">
-        <h1>פרחים צהובים בשביל האהבה שלי, גבי 💜</h1>
-        <p>לרגל יום ההולדת, זוכרת ש... זה תמיד יום שמח.</p>
+        <h1>Yellow Flowers for my Love, Gabi 💜</h1>
+        <p>Happy Birthday! Remember... it's always a happy day.</p>
       </header>
-
-      {/* נגן האודיו */}
+      
+      {/* Audio Player - Now includes 'controls' again for user interaction */}
       <div className="audio-player-container">
         <ReactAudioPlayer
-          src={`/${songFileName}`} // הנתיב מפנה לתיקיית public
-          autoPlay // מנסה לנגן אוטומטית
-          controls // כפתורי שליטה
-          loop // מנגן בלולאה
+          src={`/${SONG_FILENAME}`}
+          autoPlay 
+          controls // <-- Added controls back
+          loop
         />
       </div>
 
-      {/* גלריית התמונות הרספונסיבית */}
-      <main className='image-gallery'>
-        {images.map((img, index) => (
-          <div key={index} className='image-item'>
-            <img src={img.src} alt={img.alt} className='responsive-img'/>
-            <p>{img.alt}</p>
+      {/* Image box with navigation buttons */}
+      <main className='gallery-container'>
+          
+          {/* Left Button with Icon */}
+          <button onClick={goToPrevious} className='nav-button left-button' aria-label="Previous Image">
+              <img src={LEFT_ICON} alt="Previous" className="nav-icon" />
+          </button>
+          
+          {/* Main Image Display Box */}
+          <div className='image-display-box'>
+              <img 
+                key={currentImageIndex}
+                src={currentImage.src} 
+                alt={currentImage.alt} 
+                className='current-image'
+              />
+              <p className='image-caption'>{currentImage.alt}</p>
           </div>
-        ))}
+          
+          {/* Right Button with Icon */}
+          <button onClick={goToNext} className='nav-button right-button' aria-label="Next Image">
+              <img src={RIGHT_ICON} alt="Next" className="nav-icon" />
+          </button>
+          
       </main>
 
-      {/* פוטר */}
       <footer>
-        <p>אוהב אותך לנצח נצחים, נדב.</p>
+        <p>Forever Yours, Nadav.</p>
       </footer>
     </div>
   );
