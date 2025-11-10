@@ -1,0 +1,90 @@
+/* הגדרות בסיס גלובליות */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #fffacd; /* צהוב חיוור / צבע פרח צהוב */
+  color: #333;
+}
+
+.surprise-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.page-header h1 {
+  color: #6a0dad; /* צבע סגול יוקרתי */
+  font-size: 2.5em;
+}
+
+/* -------------------------- נגן אודיו -------------------------- */
+.audio-player-container {
+    margin: 20px auto;
+    padding: 10px;
+    background: #ffe5b4; /* גוון צהוב עמוק יותר */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* רוחב מוגבל גם במחשב */
+}
+
+/* -------------------------- גלריית תמונות -------------------------- */
+.image-gallery {
+  display: grid;
+  gap: 20px;
+  padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.image-item {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.image-item:hover {
+    transform: scale(1.03);
+}
+
+.responsive-img {
+  width: 100%;
+  height: 300px; /* גובה קבוע */
+  object-fit: cover; /* יבטיח שהתמונה תכסה את כל השטח בלי להתעוות */
+}
+
+.image-item p {
+  padding: 10px;
+  margin: 0;
+  font-style: italic;
+  color: #777;
+}
+
+/* -------------------------- רספונסיביות: מובייל -------------------------- */
+@media (max-width: 768px) {
+  /* טלפונים: הצג תמונה אחת בכל שורה */
+  .image-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header h1 {
+      font-size: 1.8em;
+  }
+
+  .responsive-img {
+      height: 250px;
+  }
+}
+
+/* -------------------------- רספונסיביות: דסקטופ/טאבלט -------------------------- */
+@media (min-width: 769px) {
+  /* טאבלט ומעלה: הצג שלוש תמונות בשורה */
+  .image-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .responsive-img {
+      height: 350px;
+  }
+}
