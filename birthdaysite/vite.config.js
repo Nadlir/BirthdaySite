@@ -3,11 +3,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// ודא שזה שם הריפוזיטורי המדויק שלך ב-GitHub
-const repoName = 'gabi-nadav-surprise'; 
+// ודא ששם הריפוזיטורי הוא הנכון
+const repoName = 'BirthdaySite'; // השתמש בשם הריפו שאתה דוחף אליו!
 
 export default defineConfig({
   plugins: [react()],
-  // הנתיב חייב להיות מוגדר כך, עם שם הריפוזיטורי
+  // הנתיב חייב להיות מוגדר כך: /שם-הריפוזיטורי/
   base: `/${repoName}/`, 
 })
