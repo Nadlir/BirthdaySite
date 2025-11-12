@@ -19,7 +19,7 @@ function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const currentImage = IMAGE_LIST[currentImageIndex];
   
-  // Logic to navigate left (Previous)
+  // Logic to navigate left (Previous) .
   const goToPrevious = () => {
     const newIndex = currentImageIndex === 0 
       ? IMAGE_LIST.length - 1 
