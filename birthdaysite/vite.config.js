@@ -3,10 +3,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// התיקון הקריטי: הגדרת הנתיב היחסי ל- './'
-// זה מכריח את הדפדפן לחפש את קבצי ה-assets ביחס לנתיב הנוכחי,
-// מה שפותר בעיות טעינה בדומיינים מותאמים אישית.
+// חוזרים לנתיב השורש הטהור
 export default defineConfig({
   plugins: [react()],
-  base: './', 
+  base: '/', 
 })
