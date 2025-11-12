@@ -3,11 +3,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// ודא ששם הריפוזיטורי הוא הנכון
-const repoName = 'BirthdaySite'; // השתמש בשם הריפו שאתה דוחף אליו!
+// הסיבה: כשאנחנו משתמשים בדומיין מותאם אישית (gabiandnadav.com), 
+// האתר נטען מנתיב השורש, לא מנתיב משני כמו /BirthdaySite/
 
 export default defineConfig({
   plugins: [react()],
-  // הנתיב חייב להיות מוגדר כך: /שם-הריפוזיטורי/
-  base: `/${repoName}/`, 
+  // ⚠️ התיקון העיקרי: משנים את הנתיב ל- '/'
+  base: '/', 
 })
