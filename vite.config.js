@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // *** וודא שהשורה הזו קיימת ונכונה ***
-  base: '/BirthdaySite/', 
+  base: '/', 
 })
