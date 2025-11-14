@@ -9,11 +9,13 @@ export const SONG_FILENAME = 'FloresAmarillas.mp3';
 // המפתח הוא שם הקובץ המלא (כולל סיומת), והערך הוא הכיתוב שיופיע מתחת לתמונה.
 const CAPTION_MAP = {
     // *** תמונות דוגמה (שנה לשמות הקבצים שלך) ***
-    'paris_2024.jpg': 'יום הולדת 2024 בפריז',
-    'getaway_weekend.jpg': 'סופ"ש ראשון שלנו יחד',
-    'smile.jpg': 'החיוך המיליון דולר שלך!',
-    'sunset.jpg': 'נוף השקיעה שלנו בחוף',
-    'image1.jpg': "PARK GUELL",
+    'image1.jpg': "HAPPY BIRTHDAY MI GABI",
+    'image2.jpg': "PArrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr GUELL",
+    'image3.jpg': "PARK GUELL",
+    'image4.jpg': "PARK GUELL",
+    'image5.jpg': "PARK GUELL",
+    'image6.jpg': "PArrrrrrrrrrrrrrrrrrrr GUELL",
+    'image7.jpg': "PARK GUELL",
 
     // *** הוסף את כל התמונות שלך כאן (שם קובץ: כיתוב) ***
     // 'my_new_image.jpg': 'זה הכיתוב שאני רוצה להציג',

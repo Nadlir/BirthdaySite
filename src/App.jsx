@@ -8,19 +8,22 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    /* *** הוספנו רוחב מלא לאלמנט הבסיס *** */
+    width: 100%; 
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #fce883; /* Soft yellow */
+    background-color: #fce883; 
     color: #333;
     
-    /* התיקון למרכוז מלא ומניעת גלילה גלובלית */
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center; 
+    align-items: center; 
     min-height: 100vh;
-    overflow: hidden; /* מונע גלילה אנכית בדף כולו */
+    /* *** שימוש ב-vw לרוחב כדי לכסות את כל המסך *** */
+    width: 100vw; 
+    overflow: hidden; 
 }
 
 /* -------------------------- MODAL STYLES -------------------------- */
@@ -30,19 +33,18 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #6a0dad; /* רקע סגול מלא */
+    background-color: #6a0dad;
     color: white;
     z-index: 1000;
     
     display: flex;
     flex-direction: column;
-    justify-content: center; /* ממורכז אנכית */
-    align-items: center; /* ממורכז אופקית */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     cursor: pointer;
-    transition: opacity 0.5s ease;
 }
-
+/* ... (שאר סגנונות המודאל) ... */
 .modal-content h1 {
     font-size: clamp(2.5em, 8vw, 6em);
     margin-bottom: 20px;
@@ -56,114 +58,117 @@ body {
 /* ------------------------------------------------------------------- */
 
 
-/* Main Container: Uses Flexbox to space content (Header/Audio, Gallery, Footer) */
+/* Main Container: מחזיק את כל התוכן וגם את תמונת הרקע */
 .surprise-page {
-    max-width: 1200px; 
     margin: 0 auto;
+    /* *** הוספנו width: 100vw כדי לוודא מתיחה עד הקצה *** */
+    width: 100vw; 
     
+    /* מאפייני גובה ותצוגה */
     height: 100vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between; 
     
-    padding: 0 10px; 
+    padding: 0 20px; 
     box-sizing: border-box; 
+
+    /* *** הגדרות רקע דינמיות *** */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.7s ease-in-out; 
+
+    position: relative; 
+}
+/* ... (שאר הסגנונות נשארים זהים, כולל ה-caption וה-footer) ... */
+
+
+/* שכבה שקופה מעל הרקע כדי לשפר קריאות טקסט */
+.surprise-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
 }
 
-/* Header, Audio, and Footer Styling */
-.page-header, 
-.audio-player-container, 
-footer {
-    text-align: center;
-    width: 90%; 
-    max-width: 600px;
-    margin-bottom: 5px; 
+
+/* -------------------------- Header Wrapper and Audio Positioning -------------------------- */
+.header-wrapper {
+    width: 100%;
+    padding: 20px 0;
+    z-index: 10;
 }
 
 .page-header {
-    margin-top: 20px;
-    margin-bottom: 5px; 
+    text-align: center;
+    width: 100%; 
+    padding: 0;
+    margin-bottom: 0; 
+    box-sizing: border-box;
 }
 
 .page-header h1 {
-    color: #6a0dad; /* Purple */
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
     font-size: clamp(1.8em, 4vw, 3em);
     margin: 0;
 }
 
-/* Audio Player - שימוש ב-audio tag מובנה במקום חבילה חיצונית */
+.page-header p {
+    color: #ffd700;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Audio Player - מיקום קבוע לחלון הדפדפן */
 .audio-player-container {
-    margin-bottom: 15px; 
-    padding: 10px;
-    background: #ffe5b4; 
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    max-width: 450px;
+    position: fixed; 
+    top: 15px; 
+    right: 15px;
+    
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    
+    width: 250px; 
+    margin: 0; 
 }
 .audio-player-container audio {
     width: 100%;
-    min-width: 280px;
 }
 
 
-/* -------------------------- Gallery Container (Main Focus) -------------------------- */
+/* -------------------------- Gallery Container (ניווט בלבד) -------------------------- */
 .gallery-container {
     flex-grow: 1; 
     display: flex; 
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 95%;
-    max-width: 1000px;
+    width: 100%; 
     margin: 5px 0; 
-}
-
-/* Main Image Display Box */
-.image-display-box {
-    width: 80%; 
-    max-width: 700px;
-    height: 100%; 
-    min-height: 200px; 
-    margin: 0 15px; 
-    background-color: white;
-    border: 6px solid #6a0dad; 
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.current-image {
-    width: 100%;
-    flex-grow: 1; 
-    object-fit: contain;
-    transition: opacity 0.5s ease-in-out;
-    padding: 10px;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.image-caption {
-    width: 100%;
-    text-align: center;
-    padding: 8px 0;
-    margin: 0;
-    background-color: #fce883;
-    border-top: 1px solid #6a0dad;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #6a0dad;
-}
 
 /* -------------------------- Navigation Buttons -------------------------- */
 .nav-button {
-    background-color: #6a0dad;
-    border: none;
+    background-color: rgba(106, 13, 173, 0.6); 
+    border: 3px solid white;
     padding: 0; 
     cursor: pointer;
     border-radius: 50%;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10;
     
     height: 70px; 
     width: 70px; 
@@ -175,7 +180,7 @@ footer {
 
 .nav-button:hover {
     background-color: #8a2be2;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .nav-icon {
@@ -184,10 +189,37 @@ footer {
     color: white;
 }
 
+/* -------------------------- Image Caption (מעל הפוטר) -------------------------- */
+.image-caption {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 5px;
+    
+    /* העיצוב החדש */
+    font-family: "Cutive Mono", monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(84, 84, 84, 0.8);
+    text-shadow: rgb(0, 0, 0) -10px 7px 5px;
+    
+    z-index: 10;
+    box-sizing: border-box;
+}
+
 /* -------------------------- Footer -------------------------- */
 footer {
+    width: 100%; 
+    padding: 0;
+    text-align: center;
     margin-top: 10px; 
     margin-bottom: 20px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    z-index: 10;
+    box-sizing: border-box;
 }
 
 
@@ -195,27 +227,27 @@ footer {
 @media (max-width: 768px) {
     
     .surprise-page {
-        padding: 10px 0;
+        padding: 10px;
     }
     
+    .image-caption {
+        font-size: 24px;
+    }
+
     .gallery-container {
+        flex-grow: 0; 
         flex-direction: column;
-        height: auto; 
-    }
-    
-    .image-display-box {
-        width: 98vw; 
-        height: 50vh;
-        margin: 10px 0;
-        min-height: 250px;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0;
     }
     
     .nav-button {
-        width: 90vw; 
+        width: 100%; 
         height: auto;
         padding: 10px 15px;
         margin: 5px 0;
-        border-radius: 12px;
+        border-radius: 8px;
         order: initial; 
     }
     
@@ -246,16 +278,15 @@ const RightArrowIcon = () => (
 
 function App() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [showModal, setShowModal] = useState(true); // *** מצב חדש: מודאל מוצג בברירת מחדל ***
+  const [showModal, setShowModal] = useState(true); 
   const audioRef = useRef(null);
   
   // בדיקה לוודא שהרשימה לא ריקה
   if (IMAGE_LIST.length === 0) {
     return (
-        <div className='surprise-page' style={{justifyContent: 'center'}}>
+        <div className='surprise-page' style={{backgroundColor: '#fce883', justifyContent: 'center'}}>
              <header className="page-header">
-                <h1>Yellow Flowers for my Love, Gabi 💜</h1>
-                <p>⚠️ אנא הוסף תמונות בקובץ image_data.js</p>
+                <h1 style={{color: '#6a0dad'}}>⚠️ אנא הוסף תמונות בקובץ image_data.js</h1>
             </header>
         </div>
     );
@@ -289,7 +320,6 @@ function App() {
     if (audioRef.current) {
         audioRef.current.play().catch(error => {
             console.log("Audio playback failed after interaction:", error);
-            // אפשרות: להשאיר את הפקדים גלויים כדי שגבי תפעיל ידנית אם יש בעיה
         });
     }
   };
@@ -297,14 +327,29 @@ function App() {
 
   // Inject CSS styles into the DOM
   useEffect(() => {
+    // הזרקת פונט Cutive Mono
+    const fontImport = document.createElement('link');
+    fontImport.href = 'https://fonts.googleapis.com/css?family=Cutive+Mono';
+    fontImport.rel = 'stylesheet';
+    document.head.appendChild(fontImport);
+    
+    // הזרקת סגנונות CSS
     const styleElement = document.createElement('style');
     styleElement.type = 'text/css';
     styleElement.appendChild(document.createTextNode(styles));
     document.head.appendChild(styleElement);
     return () => {
+      // הסרת אלמנטים בניקוי
       document.head.removeChild(styleElement);
+      document.head.removeChild(fontImport);
     };
   }, []);
+
+  // הגדרת תמונת הרקע הדינמית
+  const pageStyle = {
+    backgroundImage: showModal ? 'none' : `url(${currentImage.src})`,
+    backgroundColor: showModal ? '#fce883' : 'transparent', // צבע ברירת מחדל אם הרקע נכשל
+  };
 
 
   return (
@@ -319,25 +364,25 @@ function App() {
         </div>
       )}
 
-      <div className='surprise-page'>
+      <div className='surprise-page' style={pageStyle}>
         
-        <header className="page-header">
-          <h1>Yellow Flowers for my Love, Gabi 💜</h1>
-          <p>Happy Birthday! Remember... it's always a happy day.</p>
-        </header>
-        
+        <div className="header-wrapper">
+            <header className="page-header">
+            </header>
+        </div>
+            
         {/* Audio Player */}
         <div className="audio-player-container">
-          <audio 
-            ref={audioRef}
-            src={`/${SONG_FILENAME}`}
-            controls 
-            loop
-            preload="auto"
-          />
+            <audio 
+              ref={audioRef}
+              src={`/${SONG_FILENAME}`}
+              controls 
+              loop
+              preload="auto"
+            />
         </div>
 
-        {/* Image box with navigation buttons */}
+        {/* Image box with navigation buttons - עכשיו משמש רק לניווט */}
         <main className='gallery-container'>
             
             {/* Left Button */}
@@ -345,23 +390,15 @@ function App() {
                 <LeftArrowIcon />
             </button>
             
-            {/* Main Image Display Box */}
-            <div key={currentImageIndex} className='image-display-box'>
-                <img 
-                  src={currentImage.src} 
-                  alt={currentImage.alt} 
-                  className='current-image'
-                  onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/700x500/6a0dad/ffffff?text=Image+Not+Found"; }}
-                />
-                <p className='image-caption'>{currentImage.alt}</p>
-            </div>
-            
             {/* Right Button */}
             <button onClick={goToNext} className='nav-button right-button' aria-label="Next Image">
                 <RightArrowIcon />
             </button>
             
         </main>
+        
+        {/* כיתוב התמונה מופיע עכשיו מעוצב ומלא רוחב */}
+        <p className='image-caption'>{currentImage.alt}</p>
 
         <footer>
           <p>Forever Yours, Nadav.</p>
