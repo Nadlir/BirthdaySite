@@ -10,11 +10,11 @@ export const SONG_FILENAME = 'FloresAmarillas.mp3';
 const CAPTION_MAP = {
     // *** תמונות דוגמה (שנה לשמות הקבצים שלך) ***
     'image1.jpg': "HAPPY BIRTHDAY MI GABI",
-    'image2.jpg': "PArrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr GUELL",
+    'image2.jpg': "PArrrrrrrrr GUELL",
     'image3.jpg': "PARK GUELL",
     'image4.jpg': "PARK GUELL",
     'image5.jpg': "PARK GUELL",
-    'image6.jpg': "PArrrrrrrrrrrrrrrrrrrr GUELL",
+    'image6.jpg': "PArrrrrrr GUELL",
     'image7.jpg': "PARK GUELL",
 
     // *** הוסף את כל התמונות שלך כאן (שם קובץ: כיתוב) ***

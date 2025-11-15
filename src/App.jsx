@@ -8,8 +8,6 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    /* *** הוספנו רוחב מלא לאלמנט הבסיס *** */
-    width: 100%; 
 }
 
 body {
@@ -17,12 +15,11 @@ body {
     background-color: #fce883; 
     color: #333;
     
+    /* מרכוז ומניעת גלילה גלובלית */
     display: flex;
     justify-content: center; 
     align-items: center; 
     min-height: 100vh;
-    /* *** שימוש ב-vw לרוחב כדי לכסות את כל המסך *** */
-    width: 100vw; 
     overflow: hidden; 
 }
 
@@ -44,7 +41,7 @@ body {
     text-align: center;
     cursor: pointer;
 }
-/* ... (שאר סגנונות המודאל) ... */
+
 .modal-content h1 {
     font-size: clamp(2.5em, 8vw, 6em);
     margin-bottom: 20px;
@@ -61,7 +58,6 @@ body {
 /* Main Container: מחזיק את כל התוכן וגם את תמונת הרקע */
 .surprise-page {
     margin: 0 auto;
-    /* *** הוספנו width: 100vw כדי לוודא מתיחה עד הקצה *** */
     width: 100vw; 
     
     /* מאפייני גובה ותצוגה */
@@ -74,7 +70,10 @@ body {
     padding: 0 20px; 
     box-sizing: border-box; 
 
-    /* *** הגדרות רקע דינמיות *** */
+    /* מונע התכווצות עקב תוכן צר */
+    flex-shrink: 0; 
+    
+    /* הגדרות רקע דינמיות */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -82,8 +81,6 @@ body {
 
     position: relative; 
 }
-/* ... (שאר הסגנונות נשארים זהים, כולל ה-caption וה-footer) ... */
-
 
 /* שכבה שקופה מעל הרקע כדי לשפר קריאות טקסט */
 .surprise-page::before {
@@ -113,19 +110,6 @@ body {
     box-sizing: border-box;
 }
 
-.page-header h1 {
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    font-size: clamp(1.8em, 4vw, 3em);
-    margin: 0;
-}
-
-.page-header p {
-    color: #ffd700;
-    font-weight: bold;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-}
-
 
 /* Audio Player - מיקום קבוע לחלון הדפדפן */
 .audio-player-container {
@@ -151,7 +135,7 @@ body {
 .gallery-container {
     flex-grow: 1; 
     display: flex; 
-    justify-content: space-between;
+    justify-content: space-between; /* כפתורים בקצוות */
     align-items: center;
     width: 100%; 
     margin: 5px 0; 
@@ -183,6 +167,14 @@ body {
     transform: scale(1.1);
 }
 
+/* *** קלאס לכפתור חבוי אך תופס מקום (משמש רק את הכפתור השמאלי) *** */
+.nav-button.hidden {
+    visibility: hidden; 
+    background-color: transparent; 
+    border-color: transparent;
+    cursor: default;
+}
+
 .nav-icon {
     width: 40px; 
     height: 40px;
@@ -194,33 +186,22 @@ body {
     width: 100%;
     text-align: center;
     padding: 10px 0;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     
-    /* העיצוב החדש */
-    font-family: "Cutive Mono", monospace;
+    /* עיצוב Akronim */
+    font-family: "Akronim", cursive;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 35px;
-    color: rgb(255, 255, 255);
-    background-color: rgba(84, 84, 84, 0.8);
-    text-shadow: rgb(0, 0, 0) -10px 7px 5px;
+    font-size: 130px; 
+    color: rgb(243, 255, 20); 
+    background-color: rgba(82, 82, 82, 0); 
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px; 
     
     z-index: 10;
     box-sizing: border-box;
 }
 
-/* -------------------------- Footer -------------------------- */
-footer {
-    width: 100%; 
-    padding: 0;
-    text-align: center;
-    margin-top: 10px; 
-    margin-bottom: 20px;
-    color: white;
-    text-shadow: 1px 1px 2px black;
-    z-index: 10;
-    box-sizing: border-box;
-}
+/* -------------------------- Footer - רכיב זה הוסר -------------------------- */
 
 
 /* -------------------------- Mobile Responsiveness -------------------------- */
@@ -231,7 +212,7 @@ footer {
     }
     
     .image-caption {
-        font-size: 24px;
+        font-size: 50px;
     }
 
     .gallery-container {
@@ -295,29 +276,28 @@ function App() {
   const currentImage = IMAGE_LIST[currentImageIndex];
 
 
-  // Logic to navigate left (Previous) .
+  // Logic to navigate left (Previous) - לוגיקה לעצירה בתמונה הראשונה
   const goToPrevious = () => {
     const newIndex = currentImageIndex === 0 
-      ? IMAGE_LIST.length - 1 
+      ? 0 // עוצר
       : currentImageIndex - 1;
     setCurrentImageIndex(newIndex);
   };
 
-  // Logic to navigate right (Next)
+  // Logic to navigate right (Next) - *** לוגיקה מעודכנת: חזר ללולאה (Loop) ***
   const goToNext = () => {
     const newIndex = currentImageIndex === IMAGE_LIST.length - 1 
-      ? 0 
+      ? 0 // *** חוזר להתחלה ***
       : currentImageIndex + 1;
     setCurrentImageIndex(newIndex);
   };
 
   // פונקציה שמטפלת בלחיצה על המודאל
   const handleModalClick = () => {
-    // 1. מסתיר את המודאל
     setShowModal(false);
     
-    // 2. מפעיל את השיר (נחשב לאינטראקציה מאושרת על ידי הדפדפן)
     if (audioRef.current) {
+        audioRef.current.volume = 0.1; // משתמש בווליום המועדף (0.1)
         audioRef.current.play().catch(error => {
             console.log("Audio playback failed after interaction:", error);
         });
@@ -327,9 +307,9 @@ function App() {
 
   // Inject CSS styles into the DOM
   useEffect(() => {
-    // הזרקת פונט Cutive Mono
+    // הזרקת פונט Akronim
     const fontImport = document.createElement('link');
-    fontImport.href = 'https://fonts.googleapis.com/css?family=Cutive+Mono';
+    fontImport.href = 'https://fonts.googleapis.com/css?family=Akronim';
     fontImport.rel = 'stylesheet';
     document.head.appendChild(fontImport);
     
@@ -385,13 +365,22 @@ function App() {
         {/* Image box with navigation buttons - עכשיו משמש רק לניווט */}
         <main className='gallery-container'>
             
-            {/* Left Button */}
-            <button onClick={goToPrevious} className='nav-button left-button' aria-label="Previous Image">
+            {/* Left Button - מוסתר בתמונה הראשונה (אינדקס 0), אך תופס מקום */}
+            <button 
+                onClick={goToPrevious} 
+                className={`nav-button left-button ${currentImageIndex === 0 ? 'hidden' : ''}`}
+                aria-label="Previous Image"
+                disabled={currentImageIndex === 0}
+            >
                 <LeftArrowIcon />
             </button>
             
-            {/* Right Button */}
-            <button onClick={goToNext} className='nav-button right-button' aria-label="Next Image">
+            {/* Right Button - תמיד גלוי, עובר לתמונה הבאה, ובאחרונה חוזר לראשונה */}
+            <button 
+                onClick={goToNext} 
+                className={`nav-button right-button`}
+                aria-label="Next Image"
+            >
                 <RightArrowIcon />
             </button>
             
@@ -399,10 +388,6 @@ function App() {
         
         {/* כיתוב התמונה מופיע עכשיו מעוצב ומלא רוחב */}
         <p className='image-caption'>{currentImage.alt}</p>
-
-        <footer>
-          <p>Forever Yours, Nadav.</p>
-        </footer>
       </div>
     </>
   );
